@@ -5,9 +5,14 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "C:/SDL2/include",
-                "C:/SDL2_ttf/include"
+                "C:/SDL2_ttf/include",
+                "C:/SDL2_mixer-2.0.0/x86_64-w64-mingw32/include"
             ],
-            "defines": ["_DEBUG", "UNICODE", "_UNICODE"],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
             "compilerPath": "gcc",
             "cStandard": "c17",
             "intelliSenseMode": "windows-gcc-x64"
