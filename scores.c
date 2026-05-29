@@ -8,6 +8,7 @@ void scores_load(ScoreBoard *sb) {
     fclose(f);
 }
 
+//
 void scores_save(ScoreBoard *sb, int new_score) {
     sb->scores[SCORES_COUNT-1] = new_score;
     for (int i = SCORES_COUNT-1; i > 0; i--) {

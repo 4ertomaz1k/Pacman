@@ -30,9 +30,9 @@
 #define CELL_DOT        2
 #define CELL_EMPTY2     3
 #define CELL_ENERGIZER  4
-#define CELL_FRUIT_A    5   /* яблоко  */
-#define CELL_FRUIT_B    6   /* банан   */
-#define CELL_FRUIT_C    7   /* вишня   */
+#define CELL_FRUIT_A    5   //яблоко 
+#define CELL_FRUIT_B    6   //банан
+#define CELL_FRUIT_C    7   //вишня
 
 #define DIR_NONE  0
 #define DIR_LEFT  1
@@ -58,19 +58,19 @@
 #define ENERGIZER_TICKS  360
 #define ENERGIZER_BLINK  120
 
-/* Фрукты */
-#define FRUIT_LIFETIME      500   /* тиков живёт один фрукт */
-#define FRUIT_APPEARS_AT    50    /* первое появление */
-#define FRUIT_REPEAT        40    /* потом каждые N точек */
-#define FRUIT_MAX           3     /* максимум одновременно */
+//Фрукты
+#define FRUIT_LIFETIME      500   //тиков живёт один фрукт 
+#define FRUIT_APPEARS_AT    50    //первое появление 
+#define FRUIT_REPEAT        40    //потом каждые N точек 
+#define FRUIT_MAX           3     //максимум одновременно 
 
-/* Очки */
+
 #define SCORE_DOT        10
 #define SCORE_ENERGIZER  50
 #define SCORE_GHOST      200
-#define SCORE_FRUIT_A    100   /* яблоко  */
-#define SCORE_FRUIT_B    150   /* банан   */
-#define SCORE_FRUIT_C    200   /* вишня   */
+#define SCORE_FRUIT_A    100   //яблоко
+#define SCORE_FRUIT_B    150   //банан
+#define SCORE_FRUIT_C    200   //вишня  
 
 #define FONT_PATH  "OpenSans.ttf"
 #define FONT_HUD   16
@@ -88,18 +88,17 @@
 
 #define GHOST_COUNT 4
 
-/* ── Активный фрукт на карте ── */
 typedef struct {
     int col, row;
-    int timer;   /* 0 = нет фрукта */
-    int type;    /* CELL_FRUIT_A/B/C */
+    int timer;   
+    int type;   
 } Fruit;
 
 typedef struct {
     Uint8 cells[MAP_ROWS][MAP_COLS];
     int   total_dots;
     int   eaten_dots;
-    int   next_fruit_at;        /* порог точек для следующего фрукта */
+    int   next_fruit_at;        
     Fruit fruits[FRUIT_MAX];
 } Map;
 

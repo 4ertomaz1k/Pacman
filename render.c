@@ -92,7 +92,7 @@ void draw_menu(Game *g) {
     render_text_centered(r, g->font_ovl, "ПАКМАН", SCREEN_H/5, 255,220,0);
 
 
-    /* Пакман-декорация */
+    //Пакман-декорация
     int dcx=SCREEN_W/2, dcy=SCREEN_H/5-35, drad=22;
     SDL_SetRenderDrawColor(r,255,220,0,255);
     for(int dy=-drad;dy<=drad;dy++)
@@ -103,7 +103,7 @@ void draw_menu(Game *g) {
             SDL_RenderDrawPoint(r,dcx+dx,dcy+dy);
         }
 
-    /* Кнопки — координаты фиксированы здесь и совпадают с Game.btn_* */
+    // Кнопки — координаты фиксированы здесь и совпадают с Game.btn_*
     draw_button(r, g->font_hud, g->btn_play,   "", 30,130,30);
     draw_play_triangle(r,
         g->btn_play.x + g->btn_play.w/2,
@@ -140,7 +140,6 @@ void draw_scores_screen(SDL_Renderer *r, TTF_Font *font_big,
         y+=32;
     }
     render_text_centered(r, font_small, "R — новая игра   ESC — меню",    y+30, 150,150,150);
-    /* убрано — уже есть выше */
     (void)(y+55, 150,150,150);
 }
 

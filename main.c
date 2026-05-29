@@ -1,14 +1,3 @@
-/*
- * ПАКМАН — курсовая работа
- *
- * Сборка (Windows MinGW):
- *   gcc main.c game.c map.c pacman.c ghost.c render.c scores.c sound.c ^
- *       -o Pacman.exe ^
- *       -I C:/SDL2/include -I C:/SDL2_ttf/include ^
- *       -L C:/SDL2/lib/x64 -L C:/SDL2_ttf/lib ^
- *       -lSDL2main -lSDL2 -lSDL2_ttf -lm -mwindows
- */
-
 #include "game.h"
 #include "render.h"
 #include "scores.h"
@@ -63,7 +52,7 @@ int main(int argc, char *argv[]) {
     g.gs.score = 0;
     g.gs.energizer_timer = 0;
 
-    /* Кнопки меню — инициализируем один раз */
+    //Кнопки меню — инициализируем один раз
     g.btn_play.x = SCREEN_W/2 - 90;
     g.btn_play.y = SCREEN_H/2 - 30;
     g.btn_play.w = 180;
@@ -87,12 +76,12 @@ int main(int argc, char *argv[]) {
             else if (e.type == SDL_KEYDOWN) {
                 SDL_Keycode key = e.key.keysym.sym;
 
-                /* ESC — обрабатываем централизованно здесь */
+                //ESC — обрабатываем централизованно здесь
                 if (key == SDLK_ESCAPE) {
                     if (g.state == STATE_MENU) {
-                        running = 0;       /* в меню → выход */
+                        running = 0;       //в меню → выход
                     } else {
-                        g.state = STATE_MENU; /* везде иначе → меню */
+                        g.state = STATE_MENU; //везде иначе → меню 
                     }
                 } else {
                     game_handle_key(&g, key);

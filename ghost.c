@@ -125,7 +125,7 @@ static void ghost_step(Ghost *gh, int idx, Game *g) {
     gh->visual_x=gh->px+(gh->x-gh->px)*t;
     gh->visual_y=gh->py+(gh->y-gh->py)*t;
 
-    /* Проверка коллизии во время движения */
+    // Проверка коллизии во время движения
     if(collision_radius(gh->visual_x,gh->visual_y,
                         g->pacman.visual_x,g->pacman.visual_y)){
         if(gh->state==GHOST_SCARED){
@@ -149,7 +149,7 @@ static void ghost_step(Ghost *gh, int idx, Game *g) {
     int dx,dy; dir_to_delta(gh->dir,&dx,&dy);
     int nx=cx+dx, ny=cy+dy;
 
-    /* Портал — сброс move_timer чтобы не было фриза */
+    //Портал — сброс move_timer чтобы не было фриза
     if(cy==PORTAL_ROW && nx<0){
         gh->x=(float)(MAP_COLS-1); gh->y=(float)PORTAL_ROW;
         gh->px=gh->x; gh->py=gh->y;

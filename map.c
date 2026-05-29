@@ -1,7 +1,7 @@
 #include "map.h"
 
 static const Uint8 BASE_MAP[MAP_ROWS][MAP_COLS] = {
-/*       0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 */
+//       0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 
        { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
        { 1, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 1},
        { 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1},
@@ -71,9 +71,9 @@ void dir_to_delta(int dir, int *dx, int *dy) {
     if (dir == DIR_DOWN)  *dy =  1;
 }
 
-/* Найти случайную пустую клетку для фрукта */
+// Найти случайную пустую клетку для фрукта
 static int fruit_spawn(Map *m, int *out_col, int *out_row) {
-    /* Пробуем до 50 раз найти свободную клетку */
+    // Пробуем до 50 раз найти свободную клетку
     for (int attempt = 0; attempt < 50; attempt++) {
         int c = 1 + rand() % (MAP_COLS - 2);
         int r = 1 + rand() % (MAP_ROWS - 2);
@@ -86,7 +86,7 @@ static int fruit_spawn(Map *m, int *out_col, int *out_row) {
 }
 
 void map_update(Map *m) {
-    /* Обновляем таймеры фруктов */
+    //Обновляем таймеры фруктов
     for (int i = 0; i < FRUIT_MAX; i++) {
         if (m->fruits[i].timer > 0) {
             m->fruits[i].timer--;
@@ -97,7 +97,7 @@ void map_update(Map *m) {
 }
 
 void map_try_spawn_fruit(Map *m) {
-    /* Ищем свободный слот */
+    //Ищем свободный слот
     int slot = -1;
     for (int i = 0; i < FRUIT_MAX; i++)
         if (m->fruits[i].timer == 0) { slot = i; break; }
@@ -106,7 +106,7 @@ void map_try_spawn_fruit(Map *m) {
     int col, row;
     if (!fruit_spawn(m, &col, &row)) return;
 
-    /* Случайный тип фрукта */
+    //Случайный тип фрукта
     int types[3] = {CELL_FRUIT_A, CELL_FRUIT_B, CELL_FRUIT_C};
     int type = types[rand() % 3];
 
@@ -117,7 +117,7 @@ void map_try_spawn_fruit(Map *m) {
     m->cells[row][col]    = type;
 }
 
-/* ── ОТРИСОВКА ── */
+//ОТРИСОВКА
 static void draw_wall(SDL_Renderer *r, int x, int y, int w, int h) {
     SDL_Rect rect = {x+1, y+1, w-2, h-2};
     SDL_SetRenderDrawColor(r, 33, 33, 200, 255);
@@ -144,7 +144,7 @@ static void draw_energizer(SDL_Renderer *r, int cx, int cy,
                 SDL_RenderDrawPoint(r, cx+dx, cy+dy);
 }
 
-/* Яблоко — красный круг с листиком */
+//Яблоко
 static void draw_apple(SDL_Renderer *r, int cx, int cy) {
     int rad = CELL_SIZE/2 - 4;
     SDL_SetRenderDrawColor(r, 220, 30, 30, 255);
@@ -156,17 +156,14 @@ static void draw_apple(SDL_Renderer *r, int cx, int cy) {
     SDL_RenderDrawLine(r, cx, cy-rad, cx+3, cy-rad-4);
 }
 
-/* Банан — горизонтальная асимметричная дуга с наклоном */
+//Банан
 static void draw_banana(SDL_Renderer *r, int cx, int cy) {
     SDL_SetRenderDrawColor(r, 255, 215, 0, 255);
-    /* Толстая кривая: 3 слоя пикселей */
     for (int layer = -1; layer <= 1; layer++) {
         for (int i = 0; i < 18; i++) {
             float a = (float)i / 17.0f * (float)M_PI;
-            /* Горизонтальный эллипс изогнутый вверх */
             float rx = 7.5f;
             float ry = 4.0f;
-            /* Асимметрия: правый конец ниже левого */
             float tilt = ((float)i / 17.0f) * 2.5f;
             int x = cx - (int)(rx * cosf(a));
             int y = cy + (int)(ry * sinf(a)) + (int)tilt + layer;
@@ -174,7 +171,6 @@ static void draw_banana(SDL_Renderer *r, int cx, int cy) {
             SDL_RenderDrawPoint(r, x+1, y);
         }
     }
-    /* Тёмные кончики */
     SDL_SetRenderDrawColor(r, 180, 140, 0, 255);
     SDL_Rect t1 = {cx-9, cy+1, 3, 2};
     SDL_Rect t2 = {cx+6, cy+3, 3, 2};
@@ -182,7 +178,7 @@ static void draw_banana(SDL_Renderer *r, int cx, int cy) {
     SDL_RenderFillRect(r, &t2);
 }
 
-/* Вишня — два маленьких красных кружка */
+//Вишня
 static void draw_cherry(SDL_Renderer *r, int cx, int cy) {
     int rad = CELL_SIZE/2 - 5;
     SDL_SetRenderDrawColor(r, 200, 0, 0, 255);

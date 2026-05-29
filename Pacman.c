@@ -22,7 +22,7 @@ void pacman_update(Game *g) {
 
     p->move_timer++;
 
-    /* Интерполяция для плавного движения */
+    //Интерполяция для плавного движения
     float t = (float)p->move_timer / (float)p->speed;
     if (t > 1.0f) t = 1.0f;
     p->visual_x = p->px + (p->x - p->px) * t;
@@ -31,7 +31,7 @@ void pacman_update(Game *g) {
     if (p->move_timer < p->speed) return;
     p->move_timer = 0;
 
-    /* Анимация рта */
+    //Анимация рта
     p->anim_timer++;
     if (p->anim_timer >= 3) {
         p->anim_timer = 0;
@@ -41,7 +41,7 @@ void pacman_update(Game *g) {
     int cx = (int)roundf(p->x);
     int cy = (int)roundf(p->y);
 
-    /* Пробуем сменить направление */
+    //Пробуем сменить направление
     {
         int dx, dy;
         dir_to_delta(p->next_dir, &dx, &dy);
@@ -54,12 +54,11 @@ void pacman_update(Game *g) {
     int nx = cx + dx;
     int ny = cy + dy;
 
-    /* Всегда обновляем px/py перед шагом —
-       это фиксирует баг "дрожания" у стены */
+    //Всегда обновляем px/py перед шагом
     p->px = p->x;
     p->py = p->y;
 
-    /* Портал */
+    //Портал 
     if (!p->just_teleported && cy == PORTAL_ROW && nx < 0) {
         p->x  = (float)(MAP_COLS - 1);
         p->y  = (float)PORTAL_ROW;
@@ -67,7 +66,7 @@ void pacman_update(Game *g) {
            чтобы не было пролёта через весь экран */
         p->px = p->x; p->py = p->y;
         p->visual_x = p->x; p->visual_y = p->y;
-        p->move_timer = p->speed; /* пропускаем ожидание — сразу следующий шаг */
+        p->move_timer = p->speed; //пропускаем ожидание — сразу следующий шаг
         p->just_teleported = 1;
     }
     else if (!p->just_teleported && cy == PORTAL_ROW && nx >= MAP_COLS) {
@@ -88,7 +87,7 @@ void pacman_update(Game *g) {
            visual будет стоять на месте. Всё корректно. */
     }
 
-    /* Съедаем ячейку */
+    //Съедаем ячейку
     int px2 = (int)roundf(p->x);
     int py2 = (int)roundf(p->y);
     if (px2 < 0 || px2 >= MAP_COLS || py2 < 0 || py2 >= MAP_ROWS) return;

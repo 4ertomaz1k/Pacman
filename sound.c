@@ -8,9 +8,9 @@ static Mix_Chunk *snd_death     = NULL;
 static Mix_Chunk *snd_energizer = NULL;
 static Mix_Chunk *snd_fruit     = NULL;
 
-/* Выделенный канал для точек — не накладывается */
+// Выделенный канал для точек — не накладывается
 #define CH_DOT  0
-#define CH_FREE -1  /* любой свободный */
+#define CH_FREE -1  //любой свободный
 
 void sound_init(void) {
     if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 512) < 0) return;
@@ -32,7 +32,7 @@ void sound_quit(void) {
     Mix_CloseAudio();
 }
 
-/* Точки — канал 0, новый звук только если предыдущий уже закончился */
+//Точки — канал 0, новый звук только если предыдущий уже закончился
 void sound_play_dot(void) {
     if (!snd_dot) return;
     if (!Mix_Playing(CH_DOT))
@@ -45,7 +45,7 @@ void sound_play_ghost(void) {
 
 void sound_play_death(void) {
     if (snd_death) {
-        Mix_HaltChannel(-1);  /* глушим все — смерть важнее */
+        Mix_HaltChannel(-1);  
         Mix_PlayChannel(CH_FREE, snd_death, 0);
     }
 }
